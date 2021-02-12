@@ -155,15 +155,18 @@ def station_list():
         print("\t\tStation id - Station name")
 
         for ar in soup.find_all('area'):
-            st = ar.get('onmouseover')
-            rgm = re.findall("[0-9]+", st)
-            dgm = re.split("[0-9]+", st)
-            try:
-                st_nm.append(dgm[1][2:-2])
-                st_id.append(rgm[0] )
-                print("\t\t%s - %s" % (rgm[0], dgm[1][2:-2]))
-            except IndexError:
-                break
+            try :
+                st = ar.get('title')
+                rgm = re.findall("[0-9]+", st)
+                dgm = re.split("[0-9]+", st)
+                try:
+                    st_nm.append(dgm[1][2:-2])
+                    st_id.append(rgm[0] )
+                    print("\t\t%s - %s" % (rgm[0], dgm[1][2:]))
+                except IndexError:
+                    break
+            except TypeError:
+                break 
 
         print("\n")
 
